@@ -74,7 +74,7 @@ const TabsAdvancedUnderline = () => {
       onValueChange={setCurrentTab}
       orientation="horizontal"
       size="$4"
-      height={200}
+      height={900}
       flexDirection="column"
       activationMode="manual"
       backgroundColor="$background"
