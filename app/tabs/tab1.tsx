@@ -15,13 +15,7 @@ export default function Tab1() {
       />
       <Separator />
       <Input 
-        placeholder="House Loan" 
-        size="$4" 
-        borderWidth={2} 
-      />
-      <Separator />
-      <Input 
-        placeholder="House Loan Interest" 
+        placeholder="Annual Loan Amount" 
         size="$4" 
         borderWidth={2} 
       />
