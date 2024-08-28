@@ -1,1 +1,132 @@
 
+import React from 'react'
+import type { StackProps, TabLayout, TabsTabProps } from 'tamagui'
+import {
+  AnimatePresence,
+  Button,
+  H5,
+  SizableText,
+  Tabs,
+  XStack,
+  YStack,
+  styled,
+  View,
+  Text,
+  H2,Input,ScrollView,ListItem,YGroup 
+} from 'tamagui'
+import { ChevronRight, Cloud, Moon, Star, Sun } from '@tamagui/lucide-icons'
+
+import { MySafeAreaView } from "../../components/MySafeAreaView";
+import { MyStack } from "../../components/MyStack";
+
+
+//if tsx nahi ho rahi, then jsx mai component banake idhr simply import  karlo.
+export default function Layout() {
+  let old = true;
+  let income = 3600000;
+  let homeLoanamt = 250000;
+  let homeloanUsed=homeLoanamt;
+  let lic = 200000;
+  let licUsed = lic
+  const stdDed = old?50000:75000;
+  let taxableValue=0;
+  let tax = 0;//mostImp
+  if(old){
+
+    if(homeLoanamt>200000){
+      homeloanUsed=200000;
+    }
+    if(lic>150000){
+      licUsed = 150000;
+    }
+
+    taxableValue = income - (stdDed+homeloanUsed+licUsed);
+
+    if (taxableValue<=500000){
+      tax = 0
+    }else{
+      if(taxableValue<=1000000){
+        let i=0.05*250000;
+        let j=0.2*(taxableValue-500000)
+        tax = i+j;
+      }else{
+        let i = 0.05*250000;
+        let j = 0.2*500000;
+        let k = 0.3*(taxableValue-1000000);
+        tax = i+j+k;
+      }
+    }
+  }else{
+    taxableValue = income-stdDed;
+    if (taxableValue<=700000){
+      tax = 0;
+    }else{
+      if(taxableValue<=1000000){
+        let i=0.05*400000;
+        let j=0.1*(taxableValue-700000)
+        tax = i+j;
+      }else{
+        if(taxableValue<=1200000){
+          let i = 0.05*400000;
+          let j = 0.1*300000;
+          let k = 0.15*(taxableValue-1000000);
+          tax = i+j+k;
+        }else{
+          if(taxableValue<=1500000){
+            let i = 0.05*400000;
+            let j = 0.1*300000;
+            let k = 0.15*200000;
+            let l = 0.2*(taxableValue-1200000);
+            tax = i+j+k+l;
+          }else{
+            let i = 0.05*400000;
+            let j = 0.1*300000;
+            let k = 0.15*200000;
+            let l = 0.2*300000;
+            let m = 0.3*(taxableValue-1500000);
+            tax = i+j+k+l+m;
+          }
+        }
+      }
+    }
+  }
+
+  return (
+    <MySafeAreaView>
+      <MyStack >
+        <YStack top="$6" space="$2.5" maxWidth={500} >
+        
+      <YGroup alignSelf="center" bordered width={240} size="$4">
+      <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{income}</Text>} subTitle="Income" />
+  </YGroup.Item>
+  
+  <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{homeLoanamt}</Text>} subTitle="Payable Home Loan Amount (Of Current FY)" />
+  </YGroup.Item>
+  
+  <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{homeloanUsed}</Text>} subTitle="Home Loan Deduction" />
+  </YGroup.Item>
+  
+  <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{lic}</Text>} subTitle="LIC" />
+  </YGroup.Item>
+  
+  <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{licUsed}</Text>} subTitle="LIC Deduction" />
+  </YGroup.Item>
+  
+  <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{taxableValue}</Text>} subTitle="Final Taxable Amount" />
+  </YGroup.Item>
+  
+  <YGroup.Item>
+    <ListItem hoverTheme icon={Star} title={<Text>{tax}</Text>} subTitle="Total Payable Tax Amount" />
+  </YGroup.Item>
+      </YGroup>
+      </YStack>  
+      </MyStack>
+    </MySafeAreaView>
+  )
+}
