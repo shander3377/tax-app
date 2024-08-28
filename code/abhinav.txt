@@ -1,0 +1,152 @@
+index.tsx
+
+// @ts-nocheck
+import { Github, Twitter } from "@tamagui/lucide-icons";
+import { Link, useRouter } from "expo-router";
+import {
+  Button,
+  H1,
+  ListItem,
+  Paragraph,
+  Separator,
+  YGroup,
+  YStack
+} from "tamagui";
+
+import { MySafeAreaView } from "../components/MySafeAreaView";
+import { MyStack } from "../components/MyStack";
+
+export default function Home() {
+  const router = useRouter();
+
+  return (
+    <MySafeAreaView>
+      <MyStack>
+        <YStack maxWidth={600}>
+          <H1 textAlign="center">Welcome To Tax Calculation App</H1>
+          <Paragraph textAlign="center">
+            Go to the Calculate Tax section to calculate your tax or Get to know about tax to explore tax and schemes.
+            Navigate easily through our smooth UI
+          </Paragraph>
+        </YStack>
+
+        <YStack space="$2.5">
+          <Button onPress={() => router.push("/tax")}>
+            Get to know about tax
+          </Button>
+          <Button onPress={() => router.push("/tabs")}>Calculate Tax</Button>
+        </YStack>
+
+        <YStack space="$5">
+          <YGroup
+            bordered
+            separator={<Separator />}
+            theme="green"
+          >
+            <YGroup.Item>
+              <Link
+                asChild
+                href="https://github.com/EreN4710A"
+                target="_blank"
+              >
+                <ListItem
+                  hoverTheme
+                  title="Abhinav"
+                  pressTheme
+                  icon={Github}
+                />
+              </Link>
+            </YGroup.Item>
+            <YGroup.Item>
+              <Link
+                asChild
+                href="https://github.com/shander3377"
+                target="_blank"
+              >
+                <ListItem
+                  hoverTheme
+                  pressTheme
+                  title="Agrim"
+                  icon={Github}
+                />
+              </Link>
+            </YGroup.Item>
+            <YGroup.Item>
+              <Link
+                asChild
+                href="https://github.com/yagya-jha"
+                target="_blank"
+              >
+                <ListItem
+                  hoverTheme
+                  pressTheme
+                  title="Yagya"
+                  icon={Github}
+                />
+              </Link>
+            </YGroup.Item>
+          </YGroup>
+        </YStack>
+      </MyStack>
+    </MySafeAreaView>
+  );
+}
+
+
+
+
+tax/layout.tsx
+
+import React from 'react'
+import { YStack } from 'tamagui'
+import AccordionItem from './Accordion' // Import the custom AccordionItem
+
+export default function Layout() {
+  return (
+    <YStack space="$5" padding="$8">
+      {/* Accordion Tabs */}
+      <AccordionItem title="New Tax Regime" content="The new tax regime removes all the old benefits provided by the old tax regime system like LIC,Home Loan etc but increases the standard deduction from 50,000 to 75,000 and other section benefits." />
+
+      <AccordionItem title="Old Tax Regime" content="The old tax regime had standard deduction set at 50,000 along with other home loan,LIC and section benefits." />
+
+      <AccordionItem title="Section Benefits" 
+      content={`Section 80C -: Section 80C of the Income Tax Act is a tax-saving provision. It includes several schemes such as mutual funds, insurance premium tax saver FDs, PPF, and others. 
+The maximum limit for tax saving under Section 80C is Rs 1.5 lakh.
+
+Section 87A -: Section 87A of the Income Tax Act is a provision that allows taxpayers to claim a rebate on the payable income tax and reduce tax liability. The rebate can be claimed if your taxable income is less than Rs 5 lakh. The rebate effectively makes zero tax outgo of an individual`} />
+
+<AccordionItem title="Disclaimer" content="Please fill your tax return even if you dont have to pay even a penny. It helps to boost the GDP of the nation and helps in development of the nation as whole." />
+    </YStack>
+  )
+}
+
+
+tax/accordion.tsx
+
+import React, { useState } from 'react'
+import { YStack, Button, Text } from 'tamagui'
+
+const AccordionItem = ({ title, content }) => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <YStack borderWidth={1} borderColor="$borderColor" marginBottom="$2">
+      <Button
+        onPress={() => setIsOpen(!isOpen)}
+        padding="$2"
+        backgroundColor="$backgroundSecondary"
+        width="100%"
+        textAlign="left"
+      >
+        <Text>{title}</Text>
+      </Button>
+      {isOpen && (
+        <YStack padding="$2" backgroundColor="$background">
+          <Text>{content}</Text>
+        </YStack>
+      )}
+    </YStack>
+  )
+}
+
+export default AccordionItem
